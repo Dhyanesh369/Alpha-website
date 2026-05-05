@@ -1,0 +1,125 @@
+﻿
+> anti-gravity-template@0.1.0 lint
+> eslint
+
+
+C:\Users\DELL\OneDrive\Desktop\One MASTER TEMPLATE project\Alpha\app\about\page.tsx
+  2:1   warning  Unused eslint-disable directive (no problems were reported from 'react/no-unescaped-entities')
+  6:32  warning  'ArrowRight' is defined but never used                                                          @typescript-eslint/no-unused-vars
+
+C:\Users\DELL\OneDrive\Desktop\One MASTER TEMPLATE project\Alpha\app\contact\page.tsx
+  2:1  warning  Unused eslint-disable directive (no problems were reported from 'react/no-unescaped-entities')
+
+C:\Users\DELL\OneDrive\Desktop\One MASTER TEMPLATE project\Alpha\app\product\beard-kit\page.tsx
+  2:1   warning  Unused eslint-disable directive (no problems were reported from 'react/no-unescaped-entities')
+  6:8   warning  'Link' is defined but never used                                                                @typescript-eslint/no-unused-vars
+  7:42  warning  'Zap' is defined but never used                                                                 @typescript-eslint/no-unused-vars
+
+C:\Users\DELL\OneDrive\Desktop\One MASTER TEMPLATE project\Alpha\app\product\face-cleanser\page.tsx
+  2:1   warning  Unused eslint-disable directive (no problems were reported from 'react/no-unescaped-entities')
+  6:8   warning  'Link' is defined but never used                                                                @typescript-eslint/no-unused-vars
+  7:42  warning  'Zap' is defined but never used                                                                 @typescript-eslint/no-unused-vars
+
+C:\Users\DELL\OneDrive\Desktop\One MASTER TEMPLATE project\Alpha\app\product\page.tsx
+  2:1   warning  Unused eslint-disable directive (no problems were reported from 'react/no-unescaped-entities')
+  6:8   warning  'Link' is defined but never used                                                                @typescript-eslint/no-unused-vars
+  7:68  warning  'Truck' is defined but never used                                                               @typescript-eslint/no-unused-vars
+
+C:\Users\DELL\OneDrive\Desktop\One MASTER TEMPLATE project\Alpha\app\results\page.tsx
+  2:1  warning  Unused eslint-disable directive (no problems were reported from 'react/no-unescaped-entities')
+
+C:\Users\DELL\OneDrive\Desktop\One MASTER TEMPLATE project\Alpha\app\routine\page.tsx
+  2:1   warning  Unused eslint-disable directive (no problems were reported from 'react/no-unescaped-entities')
+  6:44  warning  'Star' is defined but never used                                                                @typescript-eslint/no-unused-vars
+  6:50  warning  'Droplet' is defined but never used                                                             @typescript-eslint/no-unused-vars
+  6:59  warning  'Shield' is defined but never used                                                              @typescript-eslint/no-unused-vars
+  6:67  warning  'Scissors' is defined but never used                                                            @typescript-eslint/no-unused-vars
+  7:8   warning  'Image' is defined but never used                                                               @typescript-eslint/no-unused-vars
+
+C:\Users\DELL\OneDrive\Desktop\One MASTER TEMPLATE project\Alpha\app\shop\page.tsx
+  2:1  warning  Unused eslint-disable directive (no problems were reported from 'react/no-unescaped-entities')
+  7:8  warning  'Link' is defined but never used                                                                @typescript-eslint/no-unused-vars
+
+C:\Users\DELL\OneDrive\Desktop\One MASTER TEMPLATE project\Alpha\components\animations\CinematicBackground.tsx
+  13:17  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\DELL\OneDrive\Desktop\One MASTER TEMPLATE project\Alpha\components\animations\CinematicBackground.tsx:13:17
+  11 |     const temp = [];
+  12 |     for (let i = 0; i < count; i++) {
+> 13 |       const t = Math.random() * 100;
+     |                 ^^^^^^^^^^^^^ Cannot call impure function
+  14 |       const factor = 20 + Math.random() * 100;
+  15 |       const speed = 0.01 + Math.random() / 200;
+  16 |       const xFactor = -20 + Math.random() * 40;                                                                                              react-hooks/purity
+  14:27  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\DELL\OneDrive\Desktop\One MASTER TEMPLATE project\Alpha\components\animations\CinematicBackground.tsx:14:27
+  12 |     for (let i = 0; i < count; i++) {
+  13 |       const t = Math.random() * 100;
+> 14 |       const factor = 20 + Math.random() * 100;
+     |                           ^^^^^^^^^^^^^ Cannot call impure function
+  15 |       const speed = 0.01 + Math.random() / 200;
+  16 |       const xFactor = -20 + Math.random() * 40;
+  17 |       const yFactor = -20 + Math.random() * 40;                                                         react-hooks/purity
+  15:28  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\DELL\OneDrive\Desktop\One MASTER TEMPLATE project\Alpha\components\animations\CinematicBackground.tsx:15:28
+  13 |       const t = Math.random() * 100;
+  14 |       const factor = 20 + Math.random() * 100;
+> 15 |       const speed = 0.01 + Math.random() / 200;
+     |                            ^^^^^^^^^^^^^ Cannot call impure function
+  16 |       const xFactor = -20 + Math.random() * 40;
+  17 |       const yFactor = -20 + Math.random() * 40;
+  18 |       const zFactor = -20 + Math.random() * 40;                                              react-hooks/purity
+  16:29  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\DELL\OneDrive\Desktop\One MASTER TEMPLATE project\Alpha\components\animations\CinematicBackground.tsx:16:29
+  14 |       const factor = 20 + Math.random() * 100;
+  15 |       const speed = 0.01 + Math.random() / 200;
+> 16 |       const xFactor = -20 + Math.random() * 40;
+     |                             ^^^^^^^^^^^^^ Cannot call impure function
+  17 |       const yFactor = -20 + Math.random() * 40;
+  18 |       const zFactor = -20 + Math.random() * 40;
+  19 |       temp.push({ t, factor, speed, xFactor, yFactor, zFactor, mx: 0, my: 0 });  react-hooks/purity
+  17:29  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\DELL\OneDrive\Desktop\One MASTER TEMPLATE project\Alpha\components\animations\CinematicBackground.tsx:17:29
+  15 |       const speed = 0.01 + Math.random() / 200;
+  16 |       const xFactor = -20 + Math.random() * 40;
+> 17 |       const yFactor = -20 + Math.random() * 40;
+     |                             ^^^^^^^^^^^^^ Cannot call impure function
+  18 |       const zFactor = -20 + Math.random() * 40;
+  19 |       temp.push({ t, factor, speed, xFactor, yFactor, zFactor, mx: 0, my: 0 });
+  20 |     }                                           react-hooks/purity
+  18:29  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\DELL\OneDrive\Desktop\One MASTER TEMPLATE project\Alpha\components\animations\CinematicBackground.tsx:18:29
+  16 |       const xFactor = -20 + Math.random() * 40;
+  17 |       const yFactor = -20 + Math.random() * 40;
+> 18 |       const zFactor = -20 + Math.random() * 40;
+     |                             ^^^^^^^^^^^^^ Cannot call impure function
+  19 |       temp.push({ t, factor, speed, xFactor, yFactor, zFactor, mx: 0, my: 0 });
+  20 |     }
+  21 |     return temp;                                                                          react-hooks/purity
+  26:13  warning  'state' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             @typescript-eslint/no-unused-vars
+  31:16  error    'factor' is never reassigned. Use 'const' instead                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             prefer-const
+  31:24  error    'speed' is never reassigned. Use 'const' instead                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              prefer-const
+  31:31  error    'xFactor' is never reassigned. Use 'const' instead                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            prefer-const
+  31:40  error    'yFactor' is never reassigned. Use 'const' instead                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            prefer-const
+  31:49  error    'zFactor' is never reassigned. Use 'const' instead                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            prefer-const
+
+Γ£û 33 problems (11 errors, 22 warnings)
+  0 errors and 8 warnings potentially fixable with the `--fix` option.
+

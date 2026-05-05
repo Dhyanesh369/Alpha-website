@@ -1,10 +1,11 @@
-import Hero from "@/components/sections/Hero";
+import CinematicScrollSystem from "@/components/animations/CinematicScrollSystem";
 
 export default function Home() {
   return (
-    <>
-      <Hero />
-      {/* Additional sections would be added here: Features, Testimonials, Pricing, etc. */}
-    </>
+    <main className="bg-[#030303]">
+      <CinematicScrollSystem />
+    </main>
   );
 }
+
+

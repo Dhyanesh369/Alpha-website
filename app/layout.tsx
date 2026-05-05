@@ -3,12 +3,16 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/animations/SmoothScroll";
 import Navbar from "@/components/sections/Navbar";
+import Footer from "@/components/sections/Footer";
+import CustomCursor from "@/components/animations/CustomCursor";
+import PageTransition from "@/components/animations/PageTransition";
+import GlobalLoader from "@/components/ui/GlobalLoader";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Agency Template | Premium Digital Experiences",
-  description: "High-end, conversion-focused website template built with Next.js and Tailwind CSS.",
+  title: "ALPHA | Premium Men's Grooming",
+  description: "Premium organic grooming built for men who demand sharper looks and real results.",
 };
 
 export default function RootLayout({
@@ -18,12 +22,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full scroll-smooth antialiased">
-      <body className={`${inter.className} min-h-full flex flex-col bg-background text-foreground`}>
+      <body className={`${inter.className} min-h-full flex flex-col bg-[#0A0A0A] text-foreground`}>
+        <GlobalLoader />
+        <CustomCursor />
         <SmoothScroll />
         <Navbar />
-        <main className="flex-grow">
-          {children}
+        <main className="flex-grow flex flex-col relative z-10">
+          <PageTransition>
+            {children}
+          </PageTransition>
         </main>
+        <Footer />
       </body>
     </html>
   );

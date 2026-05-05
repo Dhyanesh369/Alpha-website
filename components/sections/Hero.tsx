@@ -1,84 +1,175 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
+import Link from "next/link";
+import { ArrowDown, Star, Sparkles, Shield } from "lucide-react";
+import Image from "next/image";
+import { useRef, useEffect } from "react";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
-export default function Hero() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.3,
-      },
-    },
-  };
+// ─── Mouse-Reactive 3D Perspective Container ───
+function Perspective3D({ children }: { children: React.ReactNode }) {
+  const isMobile = useIsMobile();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [3, -3]), { stiffness: 100, damping: 30 });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-3, 3]), { stiffness: 100, damping: 30 });
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 1.2,
-        ease: [0.22, 1, 0.36, 1],
-      },
-    },
-  };
+  useEffect(() => {
+    if (isMobile) return;
+    const handleMouse = (e: MouseEvent) => {
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      mouseX.set((e.clientX - rect.left) / rect.width - 0.5);
+      mouseY.set((e.clientY - rect.top) / rect.height - 0.5);
+    };
+    window.addEventListener("mousemove", handleMouse, { passive: true });
+    return () => window.removeEventListener("mousemove", handleMouse);
+  }, [mouseX, mouseY, isMobile]);
+
+  if (isMobile) return <div className="w-full h-full">{children}</div>;
 
   return (
-    <section className="relative flex min-h-[90vh] flex-col items-center justify-center overflow-hidden bg-background px-6 pt-32 pb-20 text-center sm:px-12 sm:pt-48">
-      {/* Background Ambient Light */}
-      <div className="absolute top-[-10%] left-[-10%] -z-10 h-[50%] w-[50%] rounded-full bg-accent/5 blur-[120px]" />
-      <div className="absolute bottom-[-10%] right-[-10%] -z-10 h-[50%] w-[50%] rounded-full bg-primary/5 blur-[120px]" />
+    <div ref={containerRef} style={{ perspective: "1200px" }} className="w-full h-full">
+      <motion.div style={{ rotateX, rotateY, transformStyle: "preserve-3d" }} className="w-full h-full">
+        {children}
+      </motion.div>
+    </div>
+  );
+}
 
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        className="flex max-w-5xl flex-col items-center gap-10"
-      >
-        <motion.div variants={itemVariants} className="flex flex-col items-center gap-4">
-          <div className="inline-flex items-center gap-2 rounded-full border border-primary/10 bg-primary/[0.02] px-4 py-1.5 text-xs font-medium tracking-wide text-primary/80 backdrop-blur-md">
-            <span className="flex h-2 w-2 rounded-full bg-accent animate-pulse" />
-            V1.0 is now live
-            <ArrowRight className="h-3 w-3" />
-          </div>
-        </motion.div>
+// ─── Animated Particles (Subtle finishing touch) ───
+function FloatingParticles() {
+  const isMobile = useIsMobile();
+  const particles = [
+    { x: "15%", y: "25%", size: 2, dur: 20, del: 0 },
+    { x: "60%", y: "45%", size: 3, dur: 25, del: 2 },
+    { x: "80%", y: "20%", size: 2, dur: 22, del: 4 },
+  ];
 
-        <motion.h1
-          variants={itemVariants}
-          className="text-balance text-6xl font-medium tracking-[-0.03em] leading-[1.05] text-foreground sm:text-8xl lg:text-9xl"
-        >
-          Design that feels <br />
-          <span className="bg-gradient-to-b from-foreground to-foreground/60 bg-clip-text text-transparent">
-            truly weightless.
-          </span>
-        </motion.h1>
+  if (isMobile) return null;
 
-        <motion.p
-          variants={itemVariants}
-          className="max-w-xl text-lg font-normal leading-relaxed text-muted-foreground/80 sm:text-xl"
-        >
-          Elevate your digital presence with a template designed for speed,
-          precision, and an uncompromising attention to detail.
-        </motion.p>
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-[1]">
+      {particles.map((p, i) => (
+        <motion.div
+          key={i}
+          className="absolute rounded-full bg-[#C8A96A]/20 blur-[1px]"
+          style={{ width: p.size, height: p.size, left: p.x, top: p.y }}
+          animate={{
+            y: [0, -30, 0],
+            opacity: [0.1, 0.3, 0.1],
+          }}
+          transition={{
+            duration: p.dur,
+            repeat: Infinity,
+            delay: p.del,
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+    </div>
+  );
+}
 
-        <motion.div variants={itemVariants} className="flex flex-col items-center gap-6 sm:flex-row">
-          <Button size="lg" className="h-14 rounded-full px-10 text-base font-medium shadow-xl shadow-primary/10 transition-all hover:scale-105 active:scale-95">
-            Start Building
-          </Button>
-          <Button size="lg" variant="ghost" className="group h-14 rounded-full px-8 text-base font-medium">
-            Learn more
-            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </Button>
-        </motion.div>
+export default function Hero() {
+  const isMobile = useIsMobile();
+  const containerRef = useRef<HTMLElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
+
+  const productY = useTransform(scrollYProgress, [0, 1], ["0%", isMobile ? "10%" : "30%"]);
+  const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
+
+  return (
+    <section
+      ref={containerRef}
+      className="relative flex flex-col w-full overflow-hidden bg-[#050505] selection:bg-[#C8A96A] selection:text-[#0A0A0A]"
+    >
+      {/* Background System */}
+      <motion.div className="absolute inset-0 z-0 pointer-events-none" style={{ scale: bgScale }}>
+        <div className="absolute w-full h-full bg-[#050505]" />
       </motion.div>
 
-      {/* Decorative Floor */}
-      <div className="absolute bottom-0 left-0 right-0 -z-20 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+      <FloatingParticles />
+
+      {/* ═══════════ MAIN HERO ═══════════ */}
+      <div className="relative z-10 mx-auto flex w-full min-h-[100svh] max-w-[1200px] flex-col lg:flex-row items-center justify-between px-6 pt-24 pb-16 lg:pt-32">
+
+        {/* Text Section */}
+        <div className="flex w-full lg:w-[50%] flex-col items-center lg:items-start text-center lg:text-left z-20">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="mb-8 inline-flex items-center gap-3 rounded-full border border-[#C8A96A]/20 bg-[#C8A96A]/5 px-4 py-1.5 text-[11px] font-bold tracking-[0.25em] uppercase text-[#C8A96A]"
+          >
+            THE NEW STANDARD
+          </motion.div>
+
+          <h1 className="text-[40px] sm:text-[60px] lg:text-[88px] font-bold tracking-tighter leading-[1.05] mb-8 text-white max-w-[600px]" style={{ fontFamily: "'Playfair Display', serif" }}>
+            Become The Man <br className="hidden lg:block" />
+            <span className="text-[#C8A96A]">People Notice First.</span>
+          </h1>
+
+          <p className="text-lg lg:text-xl font-light leading-relaxed text-white/60 mb-12 tracking-wide max-w-[500px]">
+            Precision grooming designed to upgrade your presence, every single day.
+          </p>
+
+          <div className="flex flex-col sm:flex-row items-center gap-5 w-full sm:w-auto">
+            <Link href="/shop" className="btn-primary w-full sm:w-auto">
+              Upgrade Your Look
+            </Link>
+            <Link href="/routine" className="btn-secondary w-full sm:w-auto">
+              See The Routine
+            </Link>
+          </div>
+
+          {!isMobile && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1 }}
+              className="flex items-center gap-4 mt-16 text-white/30 text-xs font-bold uppercase tracking-widest"
+            >
+              <div className="flex text-[#C8A96A]/50">
+                {[1,2,3,4,5].map(i => <Star key={i} className="w-3.5 h-3.5 fill-current" />)}
+              </div>
+              <span>Trusted by 1,000+ men</span>
+            </motion.div>
+          )}
+        </div>
+
+        {/* Product Section */}
+        <motion.div style={{ y: productY }} className="relative mt-16 lg:mt-0 w-full lg:w-[45%] flex items-center justify-center z-10">
+          <Perspective3D>
+            <div className="relative w-full h-[350px] sm:h-[500px] lg:h-[750px] max-w-[800px]">
+              <Image
+                src="/images/hero/alpha_hero_composition.png"
+                alt="ALPHA"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+          </Perspective3D>
+        </motion.div>
+      </div>
+
+      {/* Scroll Expansion */}
+      <div className="relative z-10 w-full flex flex-col items-center justify-center min-h-[35svh] px-6 py-20 bg-gradient-to-b from-transparent via-[#050505]/50 to-[#050505]">
+        <div className="text-center">
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white/80 tracking-tight mb-3" style={{ fontFamily: "'Playfair Display', serif" }}>
+            Not just grooming.
+          </h2>
+          <h3 className="text-4xl md:text-6xl lg:text-7xl font-bold text-[#C8A96A] tracking-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
+            A visible upgrade.
+          </h3>
+        </div>
+      </div>
     </section>
   );
 }

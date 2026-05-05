@@ -106,15 +106,15 @@
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
+  --chart-5: oklch(0.769 0 0);
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.488 0.243 264.376);
   --sidebar-primary-foreground: oklch(0.985 0 0);
   --sidebar-accent: oklch(0.269 0 0);
   --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --sidebar-border: oklch(0.269 0 0);
+  --sidebar-ring: oklch(0.439 0 0);
 }
 
 @layer base {
@@ -122,12 +122,74 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-[#050505] text-white;
+    font-size: 16px;
+    line-height: 1.6;
     font-feature-settings: "cv11", "ss01";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
   }
   html {
     @apply font-sans tracking-tight;
+  }
+  
+  h1, h2, h3 {
+    line-height: 1.25;
+    @apply tracking-tight font-bold;
+  }
+
+  /* Standardized Section Padding */
+  section {
+    @apply py-20 lg:py-32;
+  }
+
+  /* Global Premium Interactions */
+  button, a {
+    @apply transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)];
+  }
+
+  /* Standard Button Style */
+  .btn-primary {
+    @apply bg-[#C8A96A] text-black font-black uppercase tracking-tighter h-14 px-10 rounded-[4px] inline-flex items-center justify-center active:scale-[0.97] hover:brightness-110 hover:shadow-[0_0_30px_rgba(200,169,106,0.3)];
+  }
+
+  .btn-secondary {
+    @apply border border-white/10 bg-white/5 text-white font-bold h-14 px-10 rounded-[4px] inline-flex items-center justify-center active:scale-[0.97] hover:bg-white/10;
+  }
+
+  button:active, a:active {
+    @apply scale-[0.97];
+  }
+
+  input, textarea {
+    @apply transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] min-h-[48px] bg-white/5 border-white/10 rounded-[4px] px-4 text-white focus:border-[#C8A96A] focus:outline-none focus:shadow-[0_0_15px_rgba(200,169,106,0.1)];
+  }
+}
+
+/* Premium Utilities */
+.text-gold {
+  @apply text-[#C8A96A];
+}
+
+.bg-gold {
+  @apply bg-[#C8A96A];
+}
+
+.border-gold {
+  @apply border-[#C8A96A]/30;
+}
+
+/* Animation Refinement */
+.fade-in {
+  @apply transition-opacity duration-700 ease-[cubic-bezier(0.22,1,0.36,1)];
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
   }
 }
